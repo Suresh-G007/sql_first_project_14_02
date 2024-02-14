@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Flask Vue</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='user.css') }}"
+    />
+
+    <style>
+      /* Custom styling for the navigation bar */
+      .navbar {
+        background-color: #2c3e50; /* Darker shade of blue */
+      }
+
+      .navbar-dark .navbar-toggler-icon {
+        background-color: #ecf0f1; /* Light grey color for the hamburger icon */
+      }
+
+      .navbar-toggler {
+        border-color: #ecf0f1; /* Light grey color for the hamburger icon */
+      }
+
+      .navbar-nav .nav-item .btn {
+        color: #ecf0f1; /* Light grey color for text */
+      }
+
+      .navbar-nav .nav-item .btn:hover,
+      .navbar-nav .nav-item .btn:active,
+      .navbar-nav .nav-item .btn:focus {
+        background-color: #3498db; /* Hover color - lighter blue */
+        border-color: #3498db;
+      }
+
+      .navbar-sticky {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- Navigation Bar -->
+      <nav class="navbar navbar-expand-lg navbar-dark navbar-sticky">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img
+              src="/static/images/logo1.png"
+              alt=""
+              width="100"
+              height="50"
+              class="d-inline-block align-top"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button
+                  class="btn btn-secondary mx-2"
+                  @click="activeComponent = 'user'"
+                >
+                  Home
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-secondary mx-2"
+                  @click="activeComponent = 'summarization'"
+                >
+                  Summarization
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-secondary mx-2"
+                  @click="activeComponent = 'trainer'"
+                >
+                  Trainer
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-secondary mx-2"
+                  @click=" activeComponent='qageneration'"
+                >
+                  QA Generation
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="btn btn-secondary mx-2"
+                  style="margin-right: 20px"
+                  @click="activeComponent = 'shortanseval'"
+                >
+                  Short Answer Evaluation
+                </button>
+              </li>
+              <li class="nav-item">
+                <a
+                  href="/logout"
+                  class="btn btn-secondary mx-2"
+                  style="margin-right: 20px"
+                  id="logout-link"
+                >
+                  <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+              </li>
+              <li
+                class="nav-item"
+                style="margin-left: 10px; margin-right: 10px"
+              >
+                <img
+                  src="/static/images/user1.png"
+                  class="d-inline-block align-top"
+                  width="20px"
+                  style="margin-left: 30px"
+                />
+                <p id="user" style="color: white"></p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Render the selected component based on the value of activeComponent -->
+      <component :is="activeComponent"></component>
+    </div>
+
+    <script>
+      // Execute the script when the page loads
+      window.addEventListener("DOMContentLoaded", function () {
+        // Get the current URL
+        var currentUrl = window.location.href;
+
+        // Create a URL object to easily extract URL parameters
+        var url = new URL(currentUrl);
+
+        // Retrieve the username from URL parameters
+        var username = url.searchParams.get("username");
+
+        // Display the username on the page
+        var userElement = document.getElementById("user");
+        userElement.textContent = "Username:" + username;
+      });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <script src="{{ url_for('static', filename='user.js') }}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

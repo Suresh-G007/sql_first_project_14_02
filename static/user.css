@@ -1,0 +1,49 @@
+
+    /* Custom styles */
+    .custom-black {
+        width: 103%;
+        /* Set a specific width */
+        height: 400px !important;
+        /* Set the same height to make it square */
+
+        background-color: #efefef !important;
+        color: #0c0c0c !important;
+        /* Set text color to Black */
+
+    }
+
+    #side_nav {
+        background: #222529;
+        min-width: 250px;
+        max-width: 250px;
+        transition: all 0.3s;
+        min-height: 100vh;
+    }
+
+    .textcolor {
+        color: #fff;
+    }
+
+
+
+    @media (max-width: 767px) {
+        #side_nav {
+            margin-left: -250px;
+            /* Initially hide the sidebar */
+            position: absolute;
+            min-height: 100vh;
+            z-index: 1;
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        #side_nav.sidebar-visible {
+            margin-left: 0;
+            /* Show the sidebar */
+        }
+    }
+
+    @media (min-width: 768px) {
+        .toggle-btn {
+            display: none;
+        }
+    }
